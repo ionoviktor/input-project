@@ -11,51 +11,51 @@ const cross = document.querySelector(".cross");
 const sendNo = document.querySelector(".sendNo");
 const error = document.querySelector(".error");
 
-// telNo.srcElement.inputmask.opts.placeholder = "•";
-cross.style.display = "flex";
 
-
-
-function sendInputNumberforData() {
-    telNo.addEventListener('click', (event) =>{
-        console.log(event)
-        return;
-    });
+function placeHolder() {
+    telNo.inputmask.opts.placeholder = "•";
 }
 
+// function sendInputNumberforData() {
+//     telNo.addEventListener('click', (event) => {
+//         console.log(event)
+//         return;
+//     });
+// }
+
 function showCross() {
-    if(telNo.value = " ") {
-        cross.style.display = "flex";
+    if (telNo) {
+        if (telNo != null) {
+            cross.style.display = "flex";
+        }
     }
 }
 
 function numberDel() {
-    cross.addEventListener('click', () =>{
-        input.telNo.target.value.delete();
+    cross.addEventListener('click', (event) => {
+        telNo.value = "";
     });
 }
 
+function sendInputNumber() {
+    sendNo.addEventListener('click', (event) => {
+        const telNumber = telNo.inputmask.unmaskedvalue();
+        if (telNumber) {
+            if (telNumber.length < 10) {
+                showMessageIfInputEmpty();
+            } else {
+                console.log(telNumber);
+            }
+        }
+    });
+}
 
-// function sendInputNumber() {
-//     sendNo.addEventListener('click', () =>{
-//         let number = telNo.value;
-        
-//         data.phoneNumber.push(number);
-//     });
-// }
+function showMessageIfInputEmpty() {
+    error.style.display = "block";
+}
 
-// function showMessageIfInputEmpty() {
-//     if(telNo.value.length < 16) {
-//         error.style.display = "block";
-//     }
-// }
-
-console.log(data);
-
-
-
-sendInputNumberforData();
+placeHolder();
+// sendInputNumberforData();
 showCross();
 numberDel();
 sendInputNumber();
-showMessageIfInputEmpty();
