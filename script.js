@@ -16,16 +16,16 @@ function placeHolder() {
     telNo.inputmask.opts.placeholder = "•";
 }
 
-// function sendInputNumberforData() {
-//     telNo.addEventListener('click', (event) => {
-//         console.log(event)
-//         return;
-//     });
-// }
+function sendInputNumberforData() {
+    telNo.addEventListener('click', (event) => {
+        console.log(event)
+        return;
+    });
+}
 
 function showCross() {
     if (telNo) {
-        if (telNo != null) {
+        if (telNo.value !== "") {
             cross.style.display = "flex";
         }
     }
@@ -37,6 +37,20 @@ function numberDel() {
     });
 }
 
+// function sendInputNumber() {
+//     sendNo.addEventListener('click', (event) => {
+//         const telNumber = telNo.inputmask.unmaskedvalue();
+//         if (telNumber) {
+//             if (telNumber.length < 10) {
+//                 showMessageIfInputEmpty();
+//             } else {
+//                 console.log(telNumber);
+//             }
+//         }
+//     });
+// }
+
+
 function sendInputNumber() {
     sendNo.addEventListener('click', (event) => {
         const telNumber = telNo.inputmask.unmaskedvalue();
@@ -44,7 +58,8 @@ function sendInputNumber() {
             if (telNumber.length < 10) {
                 showMessageIfInputEmpty();
             } else {
-                console.log(telNumber);
+                Object.assign(data, { phoneNumber: telNumber });
+                console.log(data);
             }
         }
     });
@@ -55,7 +70,7 @@ function showMessageIfInputEmpty() {
 }
 
 placeHolder();
-// sendInputNumberforData();
+sendInputNumberforData();
 showCross();
 numberDel();
 sendInputNumber();
