@@ -16,51 +16,44 @@ function placeHolder() {
     telNo.inputmask.opts.placeholder = "•";
 }
 
-function sendInputNumberforData() {
-    telNo.addEventListener('click', (event) => {
-        console.log(event)
-        return;
-    });
-}
-
-function showCross() {
-    if (telNo) {
-        if (telNo.value !== "") {
-            cross.style.display = "flex";
+function bindInputNumber() {
+    telNo.addEventListener('input', (event) => {
+        if (isInputNotEmpty()) {
+            showCross();
+            return;
+        } else {
+            hideCross();
         }
-    }
+    })
 }
 
 function numberDel() {
     cross.addEventListener('click', (event) => {
         telNo.value = "";
+        hideCross();
     });
 }
 
-// function sendInputNumber() {
-//     sendNo.addEventListener('click', (event) => {
-//         const telNumber = telNo.inputmask.unmaskedvalue();
-//         if (telNumber) {
-//             if (telNumber.length < 10) {
-//                 showMessageIfInputEmpty();
-//             } else {
-//                 console.log(telNumber);
-//             }
-//         }
-//     });
-// }
+function showCross() {
+    cross.style.display = "flex";
+}
 
+function hideCross() {
+    cross.style.display = "none";
+}
+
+function isInputNotEmpty() {
+    return telNo.inputmask.unmaskedvalue().length;
+}
 
 function sendInputNumber() {
     sendNo.addEventListener('click', (event) => {
         const telNumber = telNo.inputmask.unmaskedvalue();
-        if (telNumber) {
-            if (telNumber.length < 10) {
-                showMessageIfInputEmpty();
-            } else {
-                Object.assign(data, { phoneNumber: telNumber });
-                console.log(data);
-            }
+        if (telNumber.length < 10 || telNumber.length == "") {
+            showMessageIfInputEmpty();
+        } else {
+            Object.assign(data, { phoneNumber: telNumber });
+            console.log(data);
         }
     });
 }
@@ -70,7 +63,6 @@ function showMessageIfInputEmpty() {
 }
 
 placeHolder();
-sendInputNumberforData();
-showCross();
 numberDel();
 sendInputNumber();
+bindInputNumber();
