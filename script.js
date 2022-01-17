@@ -27,7 +27,7 @@ function bindInputNumber() {
     })
 }
 
-function numberDel() {
+function isNumberClear() {
     cross.addEventListener('click', (event) => {
         telNo.value = "";
         hideCross();
@@ -63,6 +63,6 @@ function showMessageIfInputEmpty() {
 }
 
 placeHolder();
-numberDel();
+isNumberClear();
 sendInputNumber();
 bindInputNumber();
