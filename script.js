@@ -1,37 +1,37 @@
-const data = {
+const phoneNumberData = {
     phoneNumber: "",
 };
 
 let input = document.querySelectorAll('input[type="tel"]');
-let im = new Inputmask('+7 (999) 999-99-99');
-im.mask(input);
-
 const telNo = document.querySelector(".telNo");
 const cross = document.querySelector(".cross");
 const sendNo = document.querySelector(".sendNo");
 const error = document.querySelector(".error");
 
+let im = new Inputmask({mask:'+7 (999) 999-99-99', autoUnmask: true,
+placeholder: "+7 (   )    -  -  "}, ).mask(input);
 
-function placeHolder() {
-    telNo.inputmask.opts.placeholder = "•";
-}
 
-function bindInputNumber() {
+function bindInputEventToElement() {
     telNo.addEventListener('input', (event) => {
-        if (isInputNotEmpty()) {
-            showCross();
-            return;
-        } else {
-            hideCross();
-        }
+        isInputNotEmpty() ? showCross() : hideCross()
+        writeValueFromInputToPhoneNumberData();
     })
 }
 
-function isNumberClear() {
+function writeValueFromInputToPhoneNumberData() {
+    phoneNumberData.phoneNumber = telNo.value
+}
+
+function bindEventClickToCross() {
     cross.addEventListener('click', (event) => {
-        telNo.value = "";
+        clearNumber();
         hideCross();
     });
+}
+
+function clearNumber() {
+    telNo.value = "";
 }
 
 function showCross() {
@@ -46,23 +46,31 @@ function isInputNotEmpty() {
     return telNo.inputmask.unmaskedvalue().length;
 }
 
-function sendInputNumber() {
-    sendNo.addEventListener('click', (event) => {
-        const telNumber = telNo.inputmask.unmaskedvalue();
-        if (telNumber.length < 10 || telNumber.length == "") {
-            showMessageIfInputEmpty();
-        } else {
-            Object.assign(data, { phoneNumber: telNumber });
-            console.log(data);
-        }
+function bindEventClckToSendButton() {
+    sendNo.addEventListener('click', () => {
+        isPhoneNumberNotFull() ?   showMessageIfInputEmpty() :  sendPhoneNumberData();
     });
+}
+
+function isPhoneNumberNotFull() {
+    return telNo.value.length < 10 || telNo.value.length == ""
+}
+
+
+function sendPhoneNumberData() {
+    console.log(phoneNumberData);
 }
 
 function showMessageIfInputEmpty() {
     error.style.display = "block";
 }
 
-placeHolder();
-isNumberClear();
-sendInputNumber();
-bindInputNumber();
+bindEventClickToCross();
+bindEventClckToSendButton();
+bindInputEventToElement();
+
+
+const person = new Person("Dima")
+const person2 = new Person("Alina")
+
+console.log(person, person2);
