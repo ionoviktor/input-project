@@ -7,12 +7,12 @@ let im = new Inputmask('+7 (999) 999-99-99');
 im.mask(input);
 
 const telNo = document.querySelector(".telNo");
-const cross = document.querySelector(".cross");
+const crossOne = document.querySelector(".cross");
 const sendNo = document.querySelector(".sendNo");
 const error = document.querySelector(".error");
 
 
-function placeHolder() {
+function changeDefaultPlaceHolder() {
     telNo.inputmask.opts.placeholder = "•";
 }
 
@@ -27,26 +27,34 @@ function bindInputNumber() {
     })
 }
 
-function isNumberClear() {
-    cross.addEventListener('click', (event) => {
+
+function removePhoneNumber() {
+    cross.addEentvListener('click', (event) => {
         telNo.value = "";
         hideCross();
     });
 }
 
-function showCross() {
-    cross.style.display = "flex";
-}
+
+
+// function sendInputNumber() {
+//     sendNo.addEventListener('click', (event) => {
+//         const telNumber = telNo.inputmask.unmaskedvalue();
+//         if (telNumber) {
+//             if (telNumber.length < 10) {
+//                 showMessageIfInputEmpty();
+//             } else {
+//                 console.log(telNumber);
+//             }
+//         }
+//     });
+// }
 
 function hideCross() {
     cross.style.display = "none";
 }
 
-function isInputNotEmpty() {
-    return telNo.inputmask.unmaskedvalue().length;
-}
-
-function sendInputNumber() {
+function sendInputPhoneNumber() {
     sendNo.addEventListener('click', (event) => {
         const telNumber = telNo.inputmask.unmaskedvalue();
         if (telNumber.length < 10 || telNumber.length == "") {
